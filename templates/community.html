@@ -5,7 +5,7 @@
 <div class="container mt-5">
     <h2 class="mb-4">Community</h2>
     
-    <!-- Post form -->
+   
     <form method="POST">
         {{ form.hidden_tag() }}
         <div class="mb-3">
@@ -23,12 +23,12 @@
                 <strong>{{ post.user.username }}:</strong> {{ post.content }}
             </div>
 
-            {% if post.user_id == current_user.id %}
-        <form action="{{ url_for('delete_post', post_id=post.id) }}" method="POST" style="margin:0;">
-    {{ form.hidden_tag() }}  <!-- CSRF token -->
-    <button class="btn btn-sm btn-danger">Delete</button>
-       </form> 
-     {% endif %}
+      {% if current_user.id == post.user_id %}
+<form action="{{ url_for('delete_post', post_id=post.id) }}" method="POST">
+    <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+</form>
+{% endif %}
+
 
         </div>
     </div>
