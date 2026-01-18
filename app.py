@@ -1,3 +1,4 @@
+import os
 from flask import Flask, render_template, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf import FlaskForm
@@ -148,19 +149,20 @@ def community():
 
     return render_template('community.html', posts=posts, form=form)
 
-
 @app.route('/delete_post/<int:post_id>', methods=['POST'])
 @login_required
 def delete_post(post_id):
     post = CommunityPost.query.get_or_404(post_id)
 
     if post.user_id != current_user.id:
-        flash("You cannot delete this post")
+        flash("You cannot delete someone else's post!", "danger")
         return redirect(url_for('community'))
 
     db.session.delete(post)
     db.session.commit()
+    flash("Post deleted.", "success")
     return redirect(url_for('community'))
+
 
 
 
