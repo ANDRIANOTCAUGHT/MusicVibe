@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}{{ artist.name }}{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>{{ artist.name }}</h2>
+    <img src="{{ url_for('static', filename='images/' ~ artist.image) }}" class="img-fluid rounded mb-3" alt="{{ artist.name }}">
+    <p>{{ artist.bio }}</p>
+
+    <h4>Songs:</h4>
+    <ul>
+        {% for song in artist.songs %}
+            <li>
+                {{ song.title }} - 
+                <audio controls>
+                    <source src="{{ url_for('static', filename='sounds/' ~ song.preview) }}" type="audio/mpeg">
+                </audio>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

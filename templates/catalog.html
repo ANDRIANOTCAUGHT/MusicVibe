@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-5">
+    <h2>Music Catalog</h2>
+    <div class="row">
+       {% for music in musics %}
+  <h3>{{ music.title }} - {{ music.artist.name }}</h3>
+  <audio controls>
+    <source src="{{ music.musiclink }}" type="audio/mpeg">
+  </audio>
+{% endfor %}
+
+    </div>
+</div>
+{% endblock %}
